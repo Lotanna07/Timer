@@ -22,3 +22,218 @@
   padding: 100px 20px;
   background: rgba(0, 0, 0, 0.5); /* Optional dark overlay */
 }
+
+body {
+    background-color: #000; /* Changed to black */
+    color: #fff; /* Changed to white */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 50px;
+    color: #fff; /* Explicitly set to white */
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+button {
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 30px;
+    font-size: 1.5em;
+    font-family: "Press Start 2P", system-ui;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    color: #000; /* Text color for buttons */
+}
+
+button:hover {
+    background-color: #1e1b1b;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+
+
+
+/*landing page New*/
+.page {
+  width: 360px;          /* like a phone screen */
+  min-height: 640px;
+  padding: 16px;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+
+
+.top-bar h1 {
+  font-size: 50px;
+}
+
+.block {
+  margin-bottom: 24px;
+}
+
+.block h2 {
+  font-family: "Press Start 2P", system-ui, sans-serif; /* pixel look */
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+/* Background cards */
+.bg-row {
+  display: flex;
+  gap: 8px;
+}
+
+.bg-card {
+  width: 140px;
+  background: #000;
+  color: #fff;
+  font-size: 10px;
+}
+
+.bg-card img {
+  width: 100%;
+  display: block;
+}
+
+.bg-card .hint {
+  display: block;
+  padding: 4px 6px;
+}
+
+/* Fonts row */
+.font-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.font-card {
+  flex: 1;
+  height: 60px;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+/* Example different font styles */
+.clash {
+  font-weight: 700;
+}
+.press {
+  font-family: "Press Start 2P", system-ui, sans-serif;
+}
+.pacifico {
+  font-family: "Pacifico", cursive;
+  font-style: italic;
+}
+
+.font-names {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+}
+
+/* Border color */
+.color-box {
+  width: 80px;
+  height: 80px;
+  margin-top: 6px;
+  margin-bottom: 4px;
+  border: 1px solid #000;
+}
+
+.color-box.red {
+  background: red;
+}
+
+.color-name {
+  font-size: 12px;
+}
+
+#startTimerBtn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 24px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  background: #fff;
+  color: #000;
+  cursor: pointer;
+}
+
+#startTimerBtn:disabled {
+  background: #666;
+  cursor: not-allowed;
+}
+
+h1 {
+      margin-bottom: 20px;
+    }
+
+    .timer {
+      display: flex;
+      align-items: center;
+      font-size: 24px;
+    }
+
+    .timer input {
+      width: 70px;
+      padding: 8px;
+      margin: 0 5px;
+      font-size: 20px;
+      text-align: center;
+      border: none;
+      border-radius: 8px;
+      background-color: #000;
+      color: white;
+    }
+
+    .timer span {
+      margin: 0 5px;
+      font-size: 20px;
+    }
+
+    .timer label {
+      margin-right: 10px;
+      font-size: 18px;
+    }
+
+
+
+/*night 1*/
+
+
+
+
+
+
+
+
