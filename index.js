@@ -1,16 +1,19 @@
 /* New landing page */
 const startBtn = document.getElementById('startTimerBtn');
 
-const bgRadios    = document.querySelectorAll('input[name="background"]');
-const fontRadios  = document.querySelectorAll('input[name="font"]');
+const bgRadios     = document.querySelectorAll('input[name="background"]');
+const fontRadios   = document.querySelectorAll('input[name="font"]');
 const borderRadios = document.querySelectorAll('input[name="border"]');
+
+const hoursInput   = document.getElementById('hoursInput');
+const minutesInput = document.getElementById('minutesInput');
+const secondsInput = document.getElementById('secondsInput');
 
 function allSelected() {
   const bgSelected     = document.querySelector('input[name="background"]:checked');
   const fontSelected   = document.querySelector('input[name="font"]:checked');
   const borderSelected = document.querySelector('input[name="border"]:checked');
 
-  // border color is compulsory
   return bgSelected && fontSelected && borderSelected;
 }
 
@@ -23,12 +26,36 @@ fontRadios.forEach(r => r.addEventListener('change', updateButtonState));
 borderRadios.forEach(r => r.addEventListener('change', updateButtonState));
 
 startBtn.addEventListener('click', () => {
-  if (!allSelected()) return;          // safety
+  if (!allSelected()) return;
 
-  // here you can pass data via URL params, localStorage, etc.
-  // example: go to timer.html
-  window.location.href = 'timer.html';
+  const bg   = document.querySelector('input[name="background"]:checked').value;
+  const font = document.querySelector('input[name="font"]:checked').value;
+
+  const hours   = parseInt(hoursInput.value) || 0;
+  const minutes = parseInt(minutesInput.value) || 0;
+  const seconds = parseInt(secondsInput.value) || 0;
+
+  // PAGE ROUTING MAP
+  const pageMap = {
+    bg1: { // night
+      clash: 'nightday1.html',
+      press: 'nightday2.html',
+      pacifico: 'nightday3.html'
+    },
+    bg2: { // day
+      clash: 'daytime1.html',
+      press: 'daytime2.html',
+      pacifico: 'daytime3.html'
+    }
+  };
+
+  const targetPage = pageMap[bg][font];
+
+  // redirect with timer values
+  window.location.href =
+    `${targetPage}?h=${hours}&m=${minutes}&s=${seconds}`;
 });
+
 
 
 

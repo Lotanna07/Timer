@@ -6,18 +6,18 @@
     <title>New</title>
 <link rel="stylesheet" href="index.css">
 </head>
-<body>
+<body class="new-landing-page">
    <video autoplay muted loop playsinline id="bgVideo">
   <source src="background.mp4" type="video/mp4">
 </video>
 
- <div class="page">
+ <div class="new-page">
     <header class="top-bar">
-      <h1>New</h1>
+      <h1 class="new-font">New</h1>
     </header>
 
     <!-- BACKGROUND -->
-    <section class="block">
+    <section class="new-block">
       <h2>Background</h2>
       <div class="bg-row">
 
@@ -41,7 +41,7 @@
     </section>
 
     <!-- FONTS -->
-    <section class="block">
+    <section class="new-block">
       <h2>fonts</h2>
       <div class="font-row">
 
@@ -88,15 +88,16 @@
     </section>
     <h1>Set Timer</h1>
     <div class="timer">
-    <input type="number" min="0" value="0">
-    <span>hours</span>
+  <input type="number" id="hoursInput" min="0" value="0">
+  <span>hours</span>
 
-    <input type="number" min="0" max="59" value="0">
-    <span>min</span>
+  <input type="number" id="minutesInput" min="0" max="59" value="0">
+  <span>min</span>
 
-    <input type="number" min="0" max="59" value="0">
-    <span>sec</span>
-  </div>
+  <input type="number" id="secondsInput" min="0" max="59" value="0">
+  <span>sec</span>
+</div>
+
 
 
     <div>
