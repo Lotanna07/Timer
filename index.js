@@ -64,4 +64,44 @@ startBtn.addEventListener('click', () => {
 
 
 /*Night 1*/
+const params = new URLSearchParams(window.location.search);
+
+  let h = parseInt(params.get('h')) || 0;
+  let m = parseInt(params.get('m')) || 0;
+  let s = parseInt(params.get('s')) || 0;
+
+  const display = document.getElementById('timerDisplay');
+
+  function updateDisplay() {
+    display.textContent =
+      `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  }
+
+  function startTimer() {
+    updateDisplay();
+
+    const interval = setInterval(() => {
+      if (h === 0 && m === 0 && s === 0) {
+        clearInterval(interval);
+        return;
+      }
+
+      if (s > 0) {
+        s--;
+      } else if (m > 0) {
+        m--;
+        s = 59;
+      } else if (h > 0) {
+        h--;
+        m = 59;
+        s = 59;
+      }
+
+      updateDisplay();
+    }, 1000);
+  }
+
+  
+
+  startTimer();
 
