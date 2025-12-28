@@ -44,8 +44,11 @@ if (startBtn) {
   });
 }
 
-/* Night 1 Timer - YOUR CODE IS PERFECT ✅ */
+/* Night 1 Timer - TIME'S UP WITH EMOJIS ⏰🔥✅ */
 if (document.getElementById('timerDisplay')) {
+  // 🆕 TRACK USAGE ON TIMER PAGES
+  trackAppUsage();
+  
   const params = new URLSearchParams(window.location.search);
   let h = parseInt(params.get('h')) || 0;
   let m = parseInt(params.get('m')) || 0;
@@ -58,6 +61,7 @@ if (document.getElementById('timerDisplay')) {
   const startBtn = document.getElementById('startBtn');
   const resetBtn = document.getElementById('resetBtn');
   const pauseBtn = document.getElementById('pauseBtn');
+  const alarmSound = document.getElementById('alarmSound');
 
   function updateDisplay() {
     display.textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
@@ -72,6 +76,12 @@ if (document.getElementById('timerDisplay')) {
       if (h === 0 && m === 0 && s === 0) {
         clearInterval(timerInterval);
         isRunning = false;
+        
+        // 🆕 TIME'S UP WITH EMOJIS + BLACK + ALARM
+        display.textContent = "⏰TIME'S UP!⏰";
+        display.style.color = "#000000"; // BLACK COLOR
+        if (alarmSound) alarmSound.play();
+        
         return;
       }
       if (s > 0) {
@@ -103,6 +113,14 @@ if (document.getElementById('timerDisplay')) {
     clearInterval(timerInterval);
     isRunning = false;
     pauseBtn.textContent = 'Pause';
+    
+    // 🆕 STOP ALARM + RESET DISPLAY
+    if (alarmSound) {
+      alarmSound.pause();
+      alarmSound.currentTime = 0;
+    }
+    display.style.color = "";
+    
     const params = new URLSearchParams(window.location.search);
     h = parseInt(params.get('h')) || 0;
     m = parseInt(params.get('m')) || 0;
@@ -117,4 +135,70 @@ if (document.getElementById('timerDisplay')) {
 
   // Initial display
   updateDisplay();
+}
+
+/* 🆕 ANALYTICS SYSTEM - TRACKS WEEK/MONTH/YEAR USAGE ✅ */
+function trackAppUsage() {
+  const now = new Date();
+  const today = now.toDateString();
+  
+  // Get or initialize usage data
+  let usageData = JSON.parse(localStorage.getItem('appUsage') || '{}');
+  
+  // Track today's session
+  if (!usageData.days) usageData.days = {};
+  usageData.days[today] = (usageData.days[today] || 0) + 1;
+  usageData.lastSession = now.toLocaleString();
+  usageData.totalSessions = (usageData.totalSessions || 0) + 1;
+  
+  // Clean old data (keep 2 years max)
+  cleanupOldData(usageData);
+  
+  // Save back to storage
+  localStorage.setItem('appUsage', JSON.stringify(usageData));
+}
+
+function cleanupOldData(usageData) {
+  const now = new Date();
+  const twoYearsAgo = new Date(now.getTime() - 2 * 365 * 24 * 60 * 60 * 1000);
+  
+  // Remove days older than 2 years
+  for (let date in usageData.days) {
+    const dateTime = new Date(date).getTime();
+    if (dateTime < twoYearsAgo.getTime()) {
+      delete usageData.days[date];
+    }
+  }
+}
+
+/*Analysis page - FULL ANALYTICS DISPLAY ✅*/
+if (document.querySelector('.analytics-page')) {
+  const usageData = JSON.parse(localStorage.getItem('appUsage') || '{}');
+  updateAnalyticsDisplay(usageData);
+  
+  function getUsageCount(period) {
+    const now = new Date();
+    let count = 0;
+    
+    const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+    const yearAgo = new Date(now.getTime() - 365 * 24 * 60 * 60 * 1000);
+    
+    for (let date in usageData.days) {
+      const dateTime = new Date(date).getTime();
+      if (period === 'week' && dateTime >= weekAgo.getTime()) count += usageData.days[date];
+      if (period === 'month' && dateTime >= monthAgo.getTime()) count += usageData.days[date];
+      if (period === 'year' && dateTime >= yearAgo.getTime()) count += usageData.days[date];
+    }
+    
+    return count;
+  }
+  
+  function updateAnalyticsDisplay(usageData) {
+    document.getElementById('weekCount').textContent = getUsageCount('week');
+    document.getElementById('monthCount').textContent = getUsageCount('month');
+    document.getElementById('yearCount').textContent = getUsageCount('year');
+    document.getElementById('totalCount').textContent = usageData.totalSessions || 0;
+    document.getElementById('lastSession').textContent = usageData.lastSession || 'Never';
+  }
 }

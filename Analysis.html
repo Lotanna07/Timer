@@ -6,8 +6,37 @@
     <title>Analysis</title>
     <link rel="stylesheet" href="index.css">
 </head>
-<body>
-   
+<body class="analytics-page">
+     <video autoplay muted loop playsinline id="bgVideo">
+        <source src="background.mp4" type="video/mp4">
+    </video>
+
+    <div class="analytics-container">
+        <h1>📊 Analytics</h1>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h2 id="weekCount">0</h2>
+                <p>This Week</p>
+            </div>
+            <div class="stat-card">
+                <h2 id="monthCount">0</h2>
+                <p>This Month</p>
+            </div>
+            <div class="stat-card">
+                <h2 id="yearCount">0</h2>
+                <p>This Year</p>
+            </div>
+            <div class="stat-card total">
+                <h2 id="totalCount">0</h2>
+                <p>Total Sessions</p>
+            </div>
+        </div>
+        
+        <div class="last-used">
+            <p>Last session: <span id="lastSession">Never</span></p>
+        </div>
+    </div>
     
     <script src="index.js"></script>
 </body>
