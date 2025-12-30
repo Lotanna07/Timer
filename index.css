@@ -261,6 +261,7 @@ h2 {
 .color-name {
   font-size: 12px;
   font-family: "clash display", system-ui, sans-serif;
+  margin-right: 280px;
 }
 
 /* If you have a heading like 'Border Color' give it a class border-title */
@@ -828,6 +829,11 @@ h1 {
   font-size: 1.2em;
   margin-top: 30px;
 }
+
+
+
+
+
 
 
 

@@ -1,5 +1,33 @@
-/* Landing Page - FIXED: Changed var to const/let */
-let startBtn = document.getElementById('startTimerBtn'); // Fixed: was var
+// 🆕 CLOSE BUTTON - Add this at the TOP of index.js
+document.addEventListener('DOMContentLoaded', function() {
+    const closeBtn = document.getElementById('closeBtn');
+    const bgVideo = document.getElementById('bgVideo');
+    
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            // Stop music and video first
+            if (bgVideo) bgVideo.pause();
+            const musicAudio = document.getElementById('musicAudio');
+            if (musicAudio) {
+                localStorage.setItem('musicTime', musicAudio.currentTime);
+                musicAudio.pause();
+            }
+            
+            // Confirm and close (best visual exit)
+            if (confirm('Close My Space To Focus?')) {
+                document.body.style.display = 'none';  // Instant hide
+                document.title = 'Closed';
+                setTimeout(() => {
+                    window.location.href = 'about:blank';
+                }, 300);
+            }
+        });
+    }
+});
+
+
+/* Landing Page */
+let startBtn = document.getElementById('startTimerBtn');
 
 const bgRadios     = document.querySelectorAll('input[name="background"]');
 const fontRadios   = document.querySelectorAll('input[name="font"]');
@@ -44,6 +72,72 @@ if (startBtn) {
   });
 }
 
+
+/* 🆕 BULLETPROOF MUSIC SYSTEM - WORKS ACROSS ALL PAGES */
+document.addEventListener('DOMContentLoaded', function() {
+    // Get elements
+    const musicToggle = document.getElementById('musicToggle');
+    const musicAudio = document.getElementById('musicAudio');
+    const soundToggle = document.getElementById('soundToggle');
+    const clickSound = document.getElementById('clickSound');
+
+    // 🔧 DEBUG: Check if elements exist
+    console.log('Music toggle:', musicToggle);
+    console.log('Music audio:', musicAudio);
+    console.log('Music enabled:', localStorage.getItem('musicEnabled'));
+
+    // 1. LOAD MUSIC STATE ON EVERY PAGE LOAD
+    if (musicAudio) {
+        const musicEnabled = localStorage.getItem('musicEnabled') === 'true';
+        
+        if (musicEnabled) {
+            // Resume music with saved position
+            const savedTime = parseFloat(localStorage.getItem('musicTime')) || 0;
+            musicAudio.currentTime = savedTime;
+            musicAudio.volume = 0.3;
+            musicAudio.play().catch(e => console.log('Autoplay blocked:', e));
+        } else {
+            musicAudio.pause();
+        }
+        
+        // Update toggle if on settings page
+        if (musicToggle) musicToggle.checked = musicEnabled;
+    }
+
+    // 2. TOGGLE MUSIC (only on settings page)
+    if (musicToggle && musicAudio) {
+        musicToggle.addEventListener('change', function() {
+            const enabled = this.checked;
+            localStorage.setItem('musicEnabled', enabled);
+            console.log('Music toggled:', enabled);
+            
+            if (enabled) {
+                musicAudio.volume = 0.3;
+                musicAudio.play().catch(e => console.log('Play failed:', e));
+            } else {
+                localStorage.setItem('musicTime', musicAudio.currentTime);
+                musicAudio.pause();
+            }
+        });
+    }
+
+    // 3. SAVE POSITION WHEN LEAVING PAGE
+    window.addEventListener('beforeunload', function() {
+        if (musicAudio && localStorage.getItem('musicEnabled') === 'true') {
+            localStorage.setItem('musicTime', musicAudio.currentTime);
+        }
+    });
+
+    // 4. CLICK SOUNDS (works everywhere)
+    window.playClickSound = function() {
+        if (clickSound && soundToggle && soundToggle.checked) {
+            clickSound.currentTime = 0;
+            clickSound.volume = 0.5;
+            clickSound.play().catch(e => console.log('Click blocked'));
+        }
+    };
+});
+
 /* Night 1 Timer - TIME'S UP WITH EMOJIS ⏰🔥✅ */
 if (document.getElementById('timerDisplay')) {
   // 🆕 TRACK USAGE ON TIMER PAGES
@@ -68,6 +162,7 @@ if (document.getElementById('timerDisplay')) {
   }
 
   function startTimer() {
+    playClickSound(); // 🆕 Click sound
     if (isRunning) return;
     isRunning = true;
     pauseBtn.textContent = 'Pause';
@@ -99,6 +194,7 @@ if (document.getElementById('timerDisplay')) {
   }
 
   function pauseTimer() {
+    playClickSound(); // 🆕 Click sound
     if (!isRunning) {
       startTimer();
       pauseBtn.textContent = 'Pause';
@@ -110,6 +206,7 @@ if (document.getElementById('timerDisplay')) {
   }
 
   function resetTimer() {
+    playClickSound(); // 🆕 Click sound
     clearInterval(timerInterval);
     isRunning = false;
     pauseBtn.textContent = 'Pause';

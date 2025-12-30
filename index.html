@@ -10,17 +10,23 @@
     <video autoplay muted loop playsinline id="bgVideo">
   <source src="background.mp4" type="video/mp4">
 </video>
-
+     
 
     <div class="home-buttons">
         <h1>My Space To Focus</h1>
         <div class="home-buttons">
             <button><a href="start.html">Start</a></button>
             <button><a href="analysis.html">Analysis</a></button>
-            <button><a href="settings.html">Settings</a></button>
-            <button><a href="close.html">Close</a></button>
+            <button id="closeBtn" class="close-btn">Close</button>
+
         </div>
+        <audio id="musicAudio" loop preload="auto" style="display:none;">...</audio>
+        <audio id="clickSound" preload="auto" style="display:none;">...</audio>
+        <input type="checkbox" id="soundToggle" style="display:none;">
+
     </div>
+
+    
     <script src="index.js"></script>
 </body>
 </html>
